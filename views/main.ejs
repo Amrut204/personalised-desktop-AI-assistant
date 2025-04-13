@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>new ai</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Keep your original styles, just making slight adjustments */
+        body {
+            font-family: Arial, sans-serif;
+            background:black;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+    
+        /* Profile Container */
+        .profile-container {
+          
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-align: left;
+        }
+    
+        .profile-icon {
+            font-size: 30px;
+            color:black;
+            cursor: pointer;
+        }
+    
+        /* Profile Box - Fixed */
+        .profile-details {
+            display: none;
+            background:black;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            margin-top: 10px;
+        }
+    
+        /* Input and Buttons */
+        input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+    
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    
+        button:hover {
+            background: #0056b3;
+        }
+    
+        /* Output Box */
+        #output {
+            font-size: 16px;
+            margin-top: 20px;
+            background: black;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+    
+    <script>
+        function toggleProfile() {
+            var profileDetails = document.getElementById("profileDetails");
+            profileDetails.style.display = profileDetails.style.display === "none" || profileDetails.style.display === "" ? "block" : "none";
+        }
+    </script>
+    
+      </head>
+<body>
+
+    <div class="profile-container">
+        <!-- Profile Icon -->
+        <i class="fa-solid fa-user-circle profile-icon" onclick="toggleProfile()"></i>
+
+        <!-- Profile Details -->
+        <div class="profile-details" id="profileDetails">
+            <h3>Profile</h3>
+            <p><strong>Username:</strong> <%= user1.username %></p>
+            <p><strong>Email:</strong> <%= user1.email %></p>
+            <p><strong>Mobile:</strong> <%= user1.mobile %></p>
+
+           
+        </div>
+    </div>
+   
+   
+    <style> /* General Styles */
+      /* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+ /* Profile container positioned at top-left */
+ .profile-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
+        }
+
+        /* Profile Icon Styling */
+        .profile-icon {
+            font-size: 40px;
+            color: #007bff;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .profile-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Profile Details Styling */
+        .profile-details {
+            display: none;
+            background:black;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            margin-top: 10px;
+        }
+
+        h3, h4 {
+            color: #007bff;
+            margin: 5px 0;
+        }
+
+        p {
+            font-size: 14px;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .divider {
+            border-bottom: 2px solid #ddd;
+            margin: 10px 0;
+        }
+
+/* Heading */
+h1 {
+    color: #00c3ff;
+    text-shadow: 0 0 10px #00c3ff;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Input Field */
+input, textarea {
+    width: 90%;
+    max-width: 500px;
+    padding: 12px;
+    background: #222;
+    color: white;
+    border: 1px solid #00c3ff;
+    border-radius: 5px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    background: linear-gradient(45deg, #00c3ff, #ff00ff);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 195, 255, 0.7);
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #ff00ff, #00c3ff);
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+    transform: scale(1.05);
+}
+
+/* Output Box */
+#output {
+    font-size: 18px;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 195, 255, 0.7);
+    overflow-x: auto;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Profile Section */
+.profile-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: left;
+}
+
+.profile-icon {
+    font-size: 40px;
+    color: #00c3ff;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+}
+
+.profile-details {
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background:black;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 250px;
+    z-index: 10;
+    border: 1px solid #007bff;
+}
+
+
+h3, h4 {
+    color: #00c3ff;
+    margin: 5px 0;
+}
+
+p {
+    font-size: 14px;
+    color: #ccc;
+    margin: 5px 0;
+}
+
+.divider {
+    border-bottom: 2px solid #333;
+    margin: 10px 0;
+}
+
+/* File Explorer Link */
+a {
+    color: #00c3ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Adjust Layout */
+#voiceBtn {
+    margin-left: 0;
+}
+
+    </style>
+  
+</head>
+<body>
+    
+    <div class="profile-container">
+        <!-- Profile Icon -->
+        <i class="fa-solid fa-user-circle profile-icon" onclick="toggleProfile()"></i>
+
+        <!-- Profile Details -->
+        <div class="profile-details" id="profileDetails">
+            <h3>Profile</h3>
+            <p><strong>Username:</strong> <%= user1.username %></p>
+            <p><strong>Email:</strong> <%= user1.email %></p>
+            <p><strong>Mobile:</strong> <%= user1.mobile %></p>
+
+            <div class="divider"></div>
+
+        </div>
+    </div>
+   
+    <h1>AI Chatbot & Voice Assistant <br>
+    Welcome <%= user1.username%></h1>
+    <input type="text" id="userInput" placeholder="Ask a question or give a command">
+    <button id="sendBtn">Send</button>
+    <button id="voiceBtn">🎤 Voice</button>
+    <div id="output"></div>
+    <br>
+    <a href="#" onclick="openCMD()">Open CMD</a>
+    <br>
+    <a href="#" onclick="openExplorer()">Open File Explorer</a>
+
+<script>
+    function openExplorer() {
+        fetch('/open-explorer'); // Calls the Node.js backend
+    }
+</script>
+
+
+<script>
+    function openCMD() {
+        fetch('/open-cmd'); // Call the Node.js server
+    }
+</script>
+
+   
+
+
+
+    
+    <script type="module">
+      import { GoogleGenerativeAI } from "https://cdn.jsdelivr.net/npm/@google/generative-ai/+esm";
+
+const apiKey = "AIzaSyCoKBEr7LjkYr0mmzlM9goskd6Lmv5HP3I";
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("sendBtn").addEventListener("click", generateResponse);
+    document.getElementById("userInput").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            generateResponse();
+        }
+    });
+    document.getElementById("voiceBtn").addEventListener("click", startVoiceRecognition);
+});
+
+        async function generateResponse() {
+            const inputValue = document.getElementById("userInput").value.toLowerCase().trim();
+            if (!inputValue) {
+                document.getElementById("output").textContent = "Please enter a query.";
+                return;
+            }
+
+            document.getElementById("output").textContent = "Getting response...";
+
+            const sites = {
+    "youtube": "https://www.youtube.com/results?search_query=",
+    "YouTube": "https://www.youtube.com/results?search_query=",
+    "google": "https://www.google.com/search?q=",
+    "Google": "https://www.google.com/search?q=",
+    "flipkart": "https://www.flipkart.com/search?q=",
+    "Flipkart": "https://www.flipkart.com/search?q=",
+    "whatsapp": "whatsapp://send?text=Hello",
+    "whatsapp": "whatsapp://send?text=Hello",
+    "gmail": "mailto:someone@example.com?subject=Hello&body=How are you?",
+    "word": "ms-word:ofe|u|file:///C:/Users/User/Documents/file.docx",
+    "excel": "ms-excel:ofe|u|file:///C:/Users/User/Documents/file.xlsx",
+    "powerpoint": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
+    "power point": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
+    "vscode": "vscode://",
+    "vs code": "vscode://",
+    "calendar": "outlookcal:",
+    "calculator": "calculator://",
+    "copilot": "ms-copilot://",
+    "settings": "ms-settings:",
+    "setting": "ms-settings:",
+   "command":"cmd:",
+    "cmd":"cmd:",
+    "CMD":"cmd:",
+    "command prompt":"cmd:",
+    "amazon":"https://www.amazon.in/s?k=",
+    "chatgpt":"https://chatgpt.com/",
+    "chat gpt":"https://chatgpt.com/",
+    "google classroom":"https://classroom.google.com/",
+    "classroom":"https://classroom.google.com/",
+};
+
+for (let site in sites) {
+    if (inputValue === `open ${site}`) {
+        window.open(sites[site], "_blank");
+        document.getElementById("output").textContent = `Opening ${site}...`;
+        return;
+    }
+    if (inputValue.startsWith(`open ${site} and search for `) || inputValue.startsWith(`open ${site} and search `)) {
+        const query = inputValue.replace(`open ${site} and search for `, "").replace(`open ${site} and search `, "").trim();
+        if (query) {
+            window.open(`${sites[site]}${encodeURIComponent(query)}`, "_blank");
+            document.getElementById("output").textContent = `Searching ${site} for "${query}"...`;
+            return;
+        }
+    }
+}   try {
+                const result = await model.generateContent(inputValue);
+                const response = await result.response.text();
+                document.getElementById("output").innerHTML = formatTextResponse(response);
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("output").textContent = "Failed to load response.";
+            }
+        }
+
+        function formatTextResponse(responseText) {
+            return responseText
+                .replace(/\*\*(.*?)\*\*/g, "<h2>$1</h2>")
+                .replace(/\*(.*?)\*/g, "<strong>$1</strong>")
+                .replace(/- (.*?)\n/g, "<li>$1</li>")
+                .replace(/\n\n/g, "<br><br>")
+                .replace(/<li>(.*?)<\/li>/g, "<ul><li>$1</li></ul>");
+        }
+
+        function startVoiceRecognition() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "en-US";
+            recognition.start();
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById("userInput").value = transcript;
+                generateResponse();
+            };
+
+            recognition.onerror = function(event) {
+                console.error("Speech Recognition Error:", event.error);
+                document.getElementById("output").textContent = "Voice input not recognized.";
+            };
+        }
+        function toggleProfile() {
+    var profileDetails = document.getElementById("profileDetails");
+    if (profileDetails.style.display === "block") {
+        profileDetails.style.display = "none";
+    } else {
+        profileDetails.style.display = "block";
+    }
+}
+
+    </script>
+</body>
+</html>
