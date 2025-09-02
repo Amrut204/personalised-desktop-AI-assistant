@@ -36,7 +36,7 @@
         /* Profile Box - Fixed */
         .profile-details {
             display: none;
-            background:black;
+            background:white;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -44,6 +44,15 @@
             margin-top: 10px;
         }
     
+        #linkBox{
+             display: none;
+            background:white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            margin-top: 10px;
+        }
         /* Input and Buttons */
         input {
             width: 80%;
@@ -87,6 +96,16 @@
             var profileDetails = document.getElementById("profileDetails");
             profileDetails.style.display = profileDetails.style.display === "none" || profileDetails.style.display === "" ? "block" : "none";
         }
+      function toggleMenu() {
+      
+    var addyourlink = document.getElementById("linkBox"); // Correct method & ID
+    addyourlink.style.display = (addyourlink.style.display === "none" || addyourlink.style.display === "") 
+                                ? "block" 
+                                : "none";
+                                if(addyourlink.style.display === "block" ){
+                                           alert("in first input enter the key word on which you want to open the site and in second input paste the link")
+                                }
+}
     </script>
     
       </head>
@@ -102,14 +121,31 @@
             <p><strong>Username:</strong> <%= user1.username %></p>
             <p><strong>Email:</strong> <%= user1.email %></p>
             <p><strong>Mobile:</strong> <%= user1.mobile %></p>
+            <form action="/logout"><button id="btn">Logout</button></form>
+           
 
            
         </div>
     </div>
    
+  <div class="toggle" style="width: 10px; padding-left: 70px;">
+  <!-- Hamburger icon -->
+  <i class="fa-solid fa-bars profile-icon" onclick="toggleMenu()"></i>
+
+  <!-- Hidden form -->
+  <div class="addyourlink" id="linkBox" style="display: none; margin-top: 10px; padding-left: 20px; ">
+   <form action="/addLink" method="POST">
+
+     <input style="width:auto; height: 30px;" name="siteName" type="text" id="keyword" placeholder="Enter keyword">
+    <br>
+    <input type="url" id="link" name="link" placeholder="Paste site link" style="width: auto;">
+    <button>send</button>
+   </form>
+  </div>
+</div>
+
    
-    <style> /* General Styles */
-      /* General Styles */
+    <style> 
 body {
     font-family: 'Arial', sans-serif;
     
@@ -117,6 +153,7 @@ body {
     margin: 0;
     padding: 20px;
     text-align: center;
+    background-color: rgb(91, 96, 92);
 }
  /* Profile container positioned at top-left */
  .profile-container {
@@ -174,7 +211,7 @@ h1 {
 }
 
 /* Input Field */
-input, textarea {
+#userInput {
     width: 90%;
     max-width: 500px;
     padding: 12px;
@@ -285,30 +322,33 @@ a:hover {
 #voiceBtn {
     margin-left: 0;
 }
+#btn {
+    padding: 10px 15px;
+    background: #ff004f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(255, 0, 79, 0.6);
+}
+
+
 
     </style>
+    
   
 </head>
 <body>
+  
+   <div>
     
-    <div class="profile-container">
-        <!-- Profile Icon -->
-        <i class="fa-solid fa-user-circle profile-icon" onclick="toggleProfile()"></i>
-
-        <!-- Profile Details -->
-        <div class="profile-details" id="profileDetails">
-            <h3>Profile</h3>
-            <p><strong>Username:</strong> <%= user1.username %></p>
-            <p><strong>Email:</strong> <%= user1.email %></p>
-            <p><strong>Mobile:</strong> <%= user1.mobile %></p>
-
-            <div class="divider"></div>
-
-        </div>
-    </div>
-   
     <h1>AI Chatbot & Voice Assistant <br>
     Welcome <%= user1.username%></h1>
+    
+
     <input type="text" id="userInput" placeholder="Ask a question or give a command">
     <button id="sendBtn">Send</button>
     <button id="voiceBtn">🎤 Voice</button>
@@ -317,7 +357,13 @@ a:hover {
     <a href="#" onclick="openCMD()">Open CMD</a>
     <br>
     <a href="#" onclick="openExplorer()">Open File Explorer</a>
-
+    <br><br>
+   <a href="https://www.instagram.com/" target="_blank">  <img style="height: 40px; width: 40px;" src="/images/insta.png" alt=""></a>&nbsp&nbsp&nbsp
+   <a href="https://www.linkedin.com/" target="_blank">  <img style="height: 40px; width: 40px;" src="/images/inkedin.png" alt=""></a>&nbsp&nbsp&nbsp
+   <a href="https://www.github.com/" target="_blank">  <img style="height: 40px; width: 40px;" src="/images/github.png" alt=""></a>
+   
+   
+   </div>
 <script>
     function openExplorer() {
         fetch('/open-explorer'); // Calls the Node.js backend
@@ -354,54 +400,59 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
         async function generateResponse() {
-            const inputValue = document.getElementById("userInput").value.toLowerCase().trim();
+            const inputValue = document.getElementById("userInput").value.toLowerCase().trim().replace(/\./g, '');;
             if (!inputValue) {
                 document.getElementById("output").textContent = "Please enter a query.";
                 return;
             }
 
             document.getElementById("output").textContent = "Getting response...";
+            const sites=<%- JSON.stringify(sites)%>;
+         
 
-            const sites = {
-    "youtube": "https://www.youtube.com/results?search_query=",
-    "YouTube": "https://www.youtube.com/results?search_query=",
-    "google": "https://www.google.com/search?q=",
-    "Google": "https://www.google.com/search?q=",
-    "flipkart": "https://www.flipkart.com/search?q=",
-    "Flipkart": "https://www.flipkart.com/search?q=",
-    "whatsapp": "whatsapp://send?text=Hello",
-    "whatsapp": "whatsapp://send?text=Hello",
-    "gmail": "mailto:someone@example.com?subject=Hello&body=How are you?",
-    "word": "ms-word:ofe|u|file:///C:/Users/User/Documents/file.docx",
-    "excel": "ms-excel:ofe|u|file:///C:/Users/User/Documents/file.xlsx",
-    "powerpoint": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
-    "power point": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
-    "vscode": "vscode://",
-    "vs code": "vscode://",
-    "calendar": "outlookcal:",
-    "calculator": "calculator://",
-    "copilot": "ms-copilot://",
-    "settings": "ms-settings:",
-    "setting": "ms-settings:",
-   "command":"cmd:",
-    "cmd":"cmd:",
-    "CMD":"cmd:",
-    "command prompt":"cmd:",
-    "amazon":"https://www.amazon.in/s?k=",
-    "chatgpt":"https://chatgpt.com/",
-    "chat gpt":"https://chatgpt.com/",
-    "google classroom":"https://classroom.google.com/",
-    "classroom":"https://classroom.google.com/",
-};
+        
+
+//              const sites = {
+//     "youtube": "https://www.youtube.com/results?search_query=",
+//     "YouTube": "https://www.youtube.com/results?search_query=",
+//     "google": "https://www.google.com/search?q=",
+//     "Google": "https://www.google.com/search?q=",
+//     "flipkart": "https://www.flipkart.com/search?q=",
+//     "Flipkart": "https://www.flipkart.com/search?q=",
+//     "whatsapp": "whatsapp://send?text=Hello",
+//     "Whatsapp.": "whatsapp://send?text=Hello",
+//     "gmail": "mailto:someone@example.com?subject=Hello&body=How are you?",
+//     "word": "ms-word:ofe|u|file:///C:/Users/User/Documents/file.docx",
+//     "excel": "ms-excel:ofe|u|file:///C:/Users/User/Documents/file.xlsx",
+//     "powerpoint": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
+//     "power point": "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx",
+//     "vscode": "vscode://",
+//     "vs code": "vscode://",
+//     "calendar": "outlookcal:",
+//     "calculator": "calculator://",
+//     "copilot": "ms-copilot://",
+//     "settings": "ms-settings:",
+//     "setting": "ms-settings:",
+//    "command":"cmd:",
+//     "cmd":"cmd:",
+//     "CMD":"cmd:",
+//     "command prompt":"cmd:",
+//     "amazon":"https://www.amazon.in/s?k=",
+//     "chatgpt":"https://chatgpt.com/",
+//     "chat gpt":"https://chatgpt.com/",
+//     "google classroom":"https://classroom.google.com/",
+//     "classroom":"https://classroom.google.com/",
+// };
 
 for (let site in sites) {
-    if (inputValue === `open ${site}`) {
+    if (inputValue === `open ${site}`||inputValue === `Open ${site}`||inputValue === `Open ${site}.`) {
         window.open(sites[site], "_blank");
         document.getElementById("output").textContent = `Opening ${site}...`;
         return;
     }
-    if (inputValue.startsWith(`open ${site} and search for `) || inputValue.startsWith(`open ${site} and search `)) {
+    if (inputValue.startsWith(`open ${site} and search for `) || inputValue.startsWith(`open ${site} and search `) || inputValue.startsWith(`open for ${site} and search `)) {
         const query = inputValue.replace(`open ${site} and search for `, "").replace(`open ${site} and search `, "").trim();
+        
         if (query) {
             window.open(`${sites[site]}${encodeURIComponent(query)}`, "_blank");
             document.getElementById("output").textContent = `Searching ${site} for "${query}"...`;
@@ -433,7 +484,7 @@ for (let site in sites) {
             recognition.start();
 
             recognition.onresult = function(event) {
-                const transcript = event.results[0][0].transcript;
+                const transcript = event.results[0][0].transcript.toLowerCase().trim().replace(/\./g, '');
                 document.getElementById("userInput").value = transcript;
                 generateResponse();
             };
