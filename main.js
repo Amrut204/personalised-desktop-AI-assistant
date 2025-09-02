@@ -8,11 +8,11 @@ function createWindow() {
     height: 800,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // allows access to Node.js in renderer
+      contextIsolation: false, 
     },
   });
 
-  // Load local Express app
+
   win.loadURL(isDev ? 'http://localhost:4000' : `file://${path.join(__dirname, 'index.html')}`);
 }
 
