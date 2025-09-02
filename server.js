@@ -11,12 +11,12 @@ const bcrypt = require('bcrypt');
 app.use(express.static("public"));
 
 app.use(session({
-  secret: process.env.SESSION_KEY,      // change this in production
+  secret: process.env.SESSION_KEY,     
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false,                // true only if you're using HTTPS
-    maxAge: 1000 * 60   // optional: 1 day
+    secure: false,                
+    maxAge: 1000 * 60   
   }
 }));
 function isAuthenticated(req, res, next) {
@@ -94,19 +94,19 @@ app.post("/home", async (req, res) => {
         return res.send("username or password is wrong");
     }
     req.session.userId = user1._id
-    // ✅ Get global siteDocs
+    
     const siteDocs = await siteNames.find();
     console.log(siteDocs.siteName)
     const sites1 = {};
     siteDocs.forEach(doc => { sites1[doc.siteName] = doc.link; });
 
-    // ✅ Get user-specific sites
+  
     const sites = {};
     user1.sites.forEach(doc => {
         sites[doc.siteName] = doc.link;
     });
 
-    // ✅ Merge both
+ 
     Object.assign(sites, sites1);
 
     res.render("main.ejs", { user1, sites });
@@ -174,40 +174,4 @@ const port=4000;
 app.listen(port,()=>{
     console.log("listening on port 4000")
   });
-// async function   insertSite(){
-// const sitesArray = [
-//     { siteName: "youtube", link: "https://www.youtube.com/results?search_query=" },
-//     { siteName: "YouTube", link: "https://www.youtube.com/results?search_query=" },
-//     { siteName: "google", link: "https://www.google.com/search?q=" },
-//     { siteName: "Google", link: "https://www.google.com/search?q=" },
-//     { siteName: "flipkart", link: "https://www.flipkart.com/search?q=" },
-//     { siteName: "Flipkart", link: "https://www.flipkart.com/search?q=" },
-//     { siteName: "whatsapp", link: "whatsapp://send?text=Hello" },
-//     { siteName: "Whatsapp.", link: "whatsapp://send?text=Hello" },
-//     { siteName: "gmail", link: "mailto:someone@example.com?subject=Hello&body=How are you?" },
-//     { siteName: "word", link: "ms-word:ofe|u|file:///C:/Users/User/Documents/file.docx" },
-//     { siteName: "excel", link: "ms-excel:ofe|u|file:///C:/Users/User/Documents/file.xlsx" },
-//     { siteName: "powerpoint", link: "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx" },
-//     { siteName: "power point", link: "ms-powerpoint:ofe|u|file:///C:/Users/User/Documents/file.pptx" },
-//     { siteName: "vscode", link: "vscode://" },
-//     { siteName: "vs code", link: "vscode://" },
-//     { siteName: "calendar", link: "outlookcal:" },
-//     { siteName: "calculator", link: "calculator://" },
-//     { siteName: "copilot", link: "ms-copilot://" },
-//     { siteName: "settings", link: "ms-settings:" },
-//     { siteName: "setting", link: "ms-settings:" },
-//     { siteName: "command", link: "cmd:" },
-//     { siteName: "cmd", link: "cmd:" },
-//     { siteName: "CMD", link: "cmd:" },
-//     { siteName: "command prompt", link: "cmd:" },
-//     { siteName: "amazon", link: "https://www.amazon.in/s?k=" },
-//     { siteName: "chatgpt", link: "https://chatgpt.com/" },
-//     { siteName: "chat gpt", link: "https://chatgpt.com/" },
-//     { siteName: "google classroom", link: "https://classroom.google.com/" },
-//     { siteName: "classroom", link: "https://classroom.google.com/" }
-// ];
-
-// let add=await siteNames.insertMany(sitesArray)
-// console.log(add)
-// }
-// insertSite();
+// 
